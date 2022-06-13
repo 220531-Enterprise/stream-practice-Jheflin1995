@@ -52,10 +52,12 @@ public class StreamTest {
              doesn't exist. Resource: https://www.geeksforgeeks.org/java-8-optional-class/
         ****************************************************************************/
 
-        
-        // Code your Solution here
+        Optional<Student> possiblyBob = students.stream()
+        		.filter(s -> s.getName().equals("Bob"))
+        		.findFirst();
+       
 
-        
+        System.out.println(possiblyBob.isPresent() ? possiblyBob.get().getName() : "No Student Found");
         
         
         /***************************************************************************
@@ -66,8 +68,11 @@ public class StreamTest {
         ****************************************************************************/
 
         
-        // Code your Solution here
+        Optional<Student> s1 = students.stream()
+        		.filter(s -> s.getAddress().getZipcode().equals("1235"))
+        		.findFirst();
 
+        System.out.println(s1.isPresent() ? s1.get().getName() : "No Student Found");
         
         
         
@@ -77,8 +82,20 @@ public class StreamTest {
              names to the console.
         *****************************************************************************/
 
+        System.out.println("======= ANSWER TO QUESTION 3 ======");
         
-        // Code your Solution here
+        List<Student> studentsWith3333 = students.stream()
+        		// make sure that only the students with the mobile number 3333 get stored here
+        		.filter(s -> s.getMobileNumbers() // .getMobileNUmbers returns a list!
+        				.stream() // below we're looking for a match of "3333" in the student's
+        						  // list of MobileNumbers
+        				.anyMatch(num -> num.getNumber().equals("3333")))
+        		
+        		.collect(Collectors.toList());
+        		
+        		
+        // call the forEach() method on the collection and print the name of each student
+        studentsWith3333.forEach(s -> System.out.println(s.getName()));
 
         
         
@@ -89,8 +106,19 @@ public class StreamTest {
              names to the console.
          ***************************************************************************/
 
+        System.out.println("======= ANSWER TO QUESTION 4 ======");
         
-        // Code your Solution here
+        List<Student> studentsWith1233or1234 = students.stream()
+        		// make sure that only the students with the mobile number 3333 get stored here
+        		.filter(s -> s.getMobileNumbers() // .getMobileNUmbers returns a list!
+        				.stream() // below we're looking for a match of "3333" in the student's
+        						  // list of MobileNumbers
+        				.anyMatch(num -> num.getNumber().equals("1233") || num.getNumber().equals("1234")))
+        		
+        		.collect(Collectors.toList());
+        
+        studentsWith1233or1234.forEach(s -> System.out.println(s.getName()));
+
         
         
         
@@ -117,8 +145,11 @@ public class StreamTest {
         
         // Code your Solution here, don't touch the code above
  
-
+        System.out.println("=====Q5=====");
         
+        List<TempStudent> studentList = tmpStudents.stream().collect(Collectors.toList());
+        
+        studentList.forEach(s-> System.out.println(s.name));
         
         
  
@@ -127,10 +158,12 @@ public class StreamTest {
              List<String> of just their names. Call this new list "studentNames". 
              Print it to the console.
         ****************************************************************************/
-
+        System.out.println("======Q6=======");
         
         // Code your Solution here
-
+        List<String> studentNames = studentList.stream().map(x->x.name).collect(Collectors.toList());
+        
+        System.out.println(studentNames);
         
         
         
@@ -140,8 +173,10 @@ public class StreamTest {
           	  Print that String to the console.
         ****************************************************************************/
 
+        System.out.println("=======Q7======");
         
-        // Code your Solution here
+        
+
 
         
         
@@ -177,9 +212,6 @@ public class StreamTest {
     
     
 }
-
-
-
 
 
 
